@@ -114,8 +114,11 @@ export default function(config) {
                 config.success(response.data);      
             } else {
                 const callBackText = response.statusText || response.data.ret
-                Message(callBackText);
-                config.error && config.error(callBackText);
+                if (config.error) {
+                    config.error(callBackText);
+                } else {
+                    Message(callBackText);
+                }
             }
         }
         
