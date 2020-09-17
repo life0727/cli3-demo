@@ -129,3 +129,50 @@ export default function(config) {
     //     config.error ? config.error(error) : errorFun(error);
     // });
 };
+
+export const _fetch = function(config){
+    let configUrl = api[config.url];
+    let options = {
+        url: configUrl || config.url,
+        method: config.method || 'get',
+        params: config.params,
+        data: config.data,
+        context:config.context || this,
+        headers:{
+            'Content-Type':config.headers || 'application/x-www-form-urlencoded'
+        },
+        transformRequest:!config.transformRequest ? [function(data){return data}] : [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+           
+      }]
+    };
+    return new Promise((resolve) =>{
+        service(options).then(response => {
+            options.context && options.context.loading && options.context.loading.close();
+                if(response.redirectUrl){
+                    response.redirectTarget && response.redirectTarget == 'blank' ? window.open(response.redirectUrl) : window.location.href = response.redirectUrl
+                }else{
+                    if (response.data.ret == 'notLogin') { //未登录跳外链
+                        window.location.href = response.data.redirectUrl + window.location
+                    } else if (response.data.ret == 'notPermissions') { //没有权限跳外链
+                        window.location.href = response.data.redirectUrl
+                    } else if (response.status == 200 && (!response.data.ret || response.data.ret == 'success')) { /// || => tools/goodcase/meetpoint/list?
+                        resolve(response.data)
+                    } else {
+                        const callBackText = response.statusText || response.data.ret;
+                        if (config.error) {
+                            config.error(callBackText);
+                        } else {
+                            Message(callBackText);
+                        }
+                        //resolve(null)
+                    }
+                }
+        })
+        
+    })
+}
