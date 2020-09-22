@@ -1,0 +1,2 @@
+@themeColor : #409EFF; //主题颜色
+@containerMinHeight:calc(100vh - 205px); //内容区最小高度 对应min.css--noData
