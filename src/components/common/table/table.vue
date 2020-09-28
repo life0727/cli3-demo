@@ -8,6 +8,7 @@
                     border
                     :max-height="maxHeight"
                     style="width: 100%"
+                    @row-click="rowClick"
                     @cell-dblclick="cellDbClick"
                     @select="handleSelectionRow"
                     @selection-change="handleSelectionChange">
@@ -146,6 +147,9 @@
             },
             cellDbClick(row, column, cell, event){
                 this.$emit('cellDbClick',row, column, cell, event)
+            },
+            rowClick(row, column, event){
+                this.$emit('rowClick',row, column, event)
             },
             getList() {
                 this.$emit('getList',this.pageParams)
