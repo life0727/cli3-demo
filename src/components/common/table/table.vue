@@ -8,6 +8,7 @@
                     border
                     :max-height="maxHeight"
                     style="width: 100%"
+                    :row-class-name="tableRowClassName"
                     @row-click="rowClick"
                     @cell-dblclick="cellDbClick"
                     @select="handleSelectionRow"
@@ -113,6 +114,12 @@
             showRefreshBtn:{
                 type:Boolean,
                 default:false
+            },
+            tableRowClassName:{
+                type:Function,
+                default:function({row,rowIndex}){
+                    //console.log('tableRowClassName',row)
+                }
             },
             isChecked:{
                 type:Boolean,
