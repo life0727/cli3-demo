@@ -3,7 +3,7 @@
     <div class="table_demo">
         <div class="container">
             <div class="table" v-if="this.data.length != 0">
-                <Table ref="Table" :tableData="data" :tableHeadData="tableHeadData" @rowClick="rowClick"  @getList="getTableList" :total="total"/>
+                <Table ref="Table" :tableData="data" :tableHeadData="tableHeadData" @rowClick="rowClick" :tableRowClassName="tableRowClassName"  @getList="getTableList" :total="total"/>
             </div>
             <div class="noData" v-else></div>
         </div>
@@ -26,6 +26,7 @@ import { IDMapServer } from './idMap.server'
                 'pageNum': 1,
                 'pageSize': 10
             },
+            //currentTableClick:''
       };
     },
     computed: {},
@@ -154,7 +155,7 @@ import { IDMapServer } from './idMap.server'
         },
         tableRowClassName ({row, rowIndex}) { // 点击行获取table的行索引
             row._index = rowIndex;
-            if (row.id.toString() === this.currentTableClick.toString()) {
+            if (row.id === this.currentTableClick) {
                 return 'current-row';
             }
         },
