@@ -111,9 +111,9 @@ export default function(config) {
                 window.location.href = response.data.redirectUrl
                 //setTimeout(window.open(response.data.redirectUrl), 500);//防止被浏览器拦截
             } else if (response.status == 200 && (!response.data.ret || response.data.ret == 'success')) { /// || => tools/goodcase/meetpoint/list?
-                config.success(response.data);   
+                config.success(response.data);      
             } else {
-                const callBackText = response.statusText || response.data.ret;
+                const callBackText = response.statusText || response.data.ret
                 if (config.error) {
                     config.error(callBackText);
                 } else {
@@ -142,12 +142,10 @@ export const _fetch = function(config){
             'Content-Type':config.headers || 'application/x-www-form-urlencoded'
         },
         transformRequest:!config.transformRequest ? [function(data){return data}] : [function (data) {
-            //console.log('transformRequest',data)
             let ret = ''
             for (let it in data) {
                 ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
             }
-            //console.log('ret',ret)
             return ret
            
       }]
@@ -163,10 +161,9 @@ export const _fetch = function(config){
                     } else if (response.data.ret == 'notPermissions') { //没有权限跳外链
                         window.location.href = response.data.redirectUrl
                     } else if (response.status == 200 && (!response.data.ret || response.data.ret == 'success')) { /// || => tools/goodcase/meetpoint/list?
-                        //config.success(response.data);   
                         resolve(response.data)
                     } else {
-                        const callBackText = response.statusText || response.data.msg || response.data.ret;
+                        const callBackText = response.statusText || response.data.ret;
                         if (config.error) {
                             config.error(callBackText);
                         } else {
