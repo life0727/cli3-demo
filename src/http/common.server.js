@@ -1,15 +1,15 @@
 import { Message,MessageBox,Loading } from 'element-ui'
 
 import Fetch from './server/Fetch'
-import { mapInit } from '../AMap/AMap'
+
 import { _fetch } from './server/Fetch'
 
-import MapLayout from '../AMap/map_layout/map_layout'
+import Layout from '../components/funComponents/Layout'
 
-import { mapTools as mapToolsConf, mapTextarea as mapTextareaConf } from '../AMap/map_layout/layout.baseConfig'
+import { Tools as ToolsConf, Textarea as TextareaConf } from '../components/funComponents/Layout.baseConfig'
 export class CommonServer {
-    mapToolsConf = mapToolsConf
-    mapTextareaConf = mapTextareaConf
+    ToolsConf = ToolsConf
+    TextareaConf = TextareaConf
 
     constructor(context){
         this.context = context;
@@ -41,12 +41,12 @@ export class CommonServer {
     }
 
     //加载公共组件
-    addMapComponent(addComponentName){
-        if(!this.context.map){
+    addComponent(addComponentName){
+        if(!this.context.base){
             return
         }
-        this.mapLayout = new MapLayout(this.context.map,this.context);
-        this.mapLayout.addComponent(addComponentName);
+        this.Layout = new Layout(this.context.base,this.context);
+        this.Layout.addComponent(addComponentName);
     }
 
     _deepCopy(obj){
