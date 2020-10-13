@@ -1,4 +1,4 @@
-import Base from '../Base'
+import Base from './Base'
 import Textarea from '../../components/common/tools/Textarea.vue'
 import Tools from '../../components/common/tools/Tools.vue'
 
