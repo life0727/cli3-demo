@@ -4,17 +4,20 @@ import Fetch from './server/Fetch'
 
 import { _fetch } from './server/Fetch'
 
+import LoadScript from './server/LoadScript'
+
 import Layout from '../components/common/funComponents/Layout'
 
 import { Tools as ToolsConf, Textarea as TextareaConf } from '../components/common/funComponents/Layout.baseConfig'
 export class CommonServer {
     ToolsConf = ToolsConf
     TextareaConf = TextareaConf
-
+    
     constructor(context){
         this.context = context;
         this.Fetch = Fetch;
         this._fetch = _fetch
+        this.loadScript = new LoadScript() 
         this.Message = Message;
     }
 
