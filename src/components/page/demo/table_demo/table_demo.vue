@@ -91,6 +91,17 @@ import { IDMapServer } from './idMap.server'
                 }else if(item.taskStatus === 1){
                     item.taskStatus_show = '运行中'
                 }
+                
+                // if(this.isMetaShow){
+                //     item.operation_list = [
+                //         {name: '修改', colorType:'primary', clickFun: this.editRow},
+                //         {name: '删除', colorType:'danger', clickFun: this.deleteRow}
+                //     ]
+                // }else{
+                //     item.operation_list = [
+                //         {name: '新建任务', colorType:'primary',width:'62px', clickFun: this.addTask},
+                //     ]
+                // }
 
                 return {
                     ...item,
