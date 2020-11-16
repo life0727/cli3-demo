@@ -46,7 +46,7 @@
                     </template>
                     <template slot-scope="scope" >
                         <div v-if="item.operation" >
-                            <div v-if="scope.row['operation_list']" class="operateBtn">
+                            <div v-if="scope.row['operation_list'] && item.operation.length === 0" class="operateBtn">
                                 <el-button 
                                     v-for="(oitem, key) in scope.row['operation_list']" 
                                     :key="key"
