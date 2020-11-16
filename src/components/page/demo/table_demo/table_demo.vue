@@ -139,6 +139,15 @@ import { IDMapServer } from './idMap.server'
                 }
                 tableHeadData.push(obj);
             }
+            this.tableHeadData.push({
+                prop:'operate',
+                label:'运维列表',
+                tableOrder : 7,
+                minWidth:'130',
+                operation:[
+                    {name: '运维列表', colorType:'primary',width:'64px', clickFun: this.checkOperation}
+            　　]
+            });
             tableHeadData.push({
                 prop:'operate',
                 label:'操作',
