@@ -39,7 +39,7 @@
                         :label="item.label"
                         :fixed="item.fixed"
                 >
-                    <template #header="scope">
+                    <template #header>
                         <el-tooltip effect="dark" :content="item.label" placement="top">
                             <span>{{item.label}}</span>
                         </el-tooltip>
@@ -52,7 +52,9 @@
                                     :key="key"
                                     @click="oitem.clickFun(scope.row,scope.$index,item)"
                                     :style="{width:oitem.width}"
-                                    :type="oitem.colorType" size="mini">
+                                    :disabled="oitem.isDisabled"
+                                    :type="oitem.colorType" 
+                                    size="mini">
                                     {{ oitem.name }}
                     　　　　　　 </el-button>
                             </div>
@@ -62,6 +64,7 @@
                                     :key="key"
                                     @click="oitem.clickFun(scope.row,scope.$index,item)"
                                     :style="{width:oitem.width}"
+                                    :disabled="oitem.isDisabled"
                                     :type="oitem.colorType" size="mini">
                                     {{ oitem.name }}
                     　　　　　　 </el-button>
@@ -74,7 +77,8 @@
                             </span>
                         </div> -->
                         <div v-else>
-                            <span>{{ scope.row[item.content] || scope.row[item.prop] }}</span>
+                            <span v-if="item.isLink"><el-link type="primary" @click="linkTo(scope.row,item)">{{ scope.row[item.content] || scope.row[item.prop] }}</el-link></span>
+                            <span v-else>{{ scope.row[item.content] || scope.row[item.prop] }}</span>
                         </div>
                     </template>
                 </el-table-column>
@@ -83,6 +87,7 @@
         <pagination
                 v-if="total > 0"
                 :total="total"
+                :hidden="pageHidden"
                 :page.sync="pageParams.pageNum"
                 :limit.sync="pageParams.pageSize"
                 @pagination="getList"
@@ -132,7 +137,20 @@
             maxHeight:{
                 type:String,
                 default:'initial'
+            },
+            pageHidden:{
+                type:Boolean,
+                default:false
             }
+            // DefaultPageParams: {
+            //     type: Object,
+            //     default: function () {
+            //         return {
+            //             'pageNum': 1,
+            //             'pageSize': 10
+            //         }
+            //     }
+            // }
         },
         data() {
             return {
@@ -160,6 +178,9 @@
             },
             getList() {
                 this.$emit('getList',this.pageParams)
+            },
+            linkTo(row,column){
+                this.$emit('linkTo',row, column)
             }
         }
     };
