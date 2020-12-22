@@ -17,6 +17,8 @@ module.exports = {
         }    
     },
     chainWebpack: config=> {  //配置css通用变量
+        config.plugins.delete('preload')
+        config.plugins.delete('prefetch')
         config.module.rule('less').oneOf('vue').use('style-resource')
         .loader('style-resources-loader')
         .options({
