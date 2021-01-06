@@ -94,7 +94,7 @@ import { IDMapServer } from './idMap.server'
                 
                 // if(this.isMetaShow){
                 //     item.operation_list = [
-                //         {name: '修改', colorType:'primary', clickFun: this.editRow},
+                //         {name: '修改', colorType:'primary',badge:true, clickFun: this.editRow},
                 //         {name: '删除', colorType:'danger', clickFun: this.deleteRow}
                 //     ]
                 // }else{
@@ -118,6 +118,7 @@ import { IDMapServer } from './idMap.server'
                     case 'checkStatus':
                         obj.prop = i;
                         obj.label = '检查状态'
+                        obj.isLink = true; 
                         obj.minWidth = '150';
                         obj.tableOrder = 13
                         break 
@@ -179,6 +180,11 @@ import { IDMapServer } from './idMap.server'
                 return 'current-row';
             }
         },
+        linkTo(row,col){
+            if(col.prop === 'instanceId'){
+                window.open(row.url)
+            }
+        }
     }
   }
 
