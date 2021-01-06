@@ -17,7 +17,14 @@ module.exports = {
         }    
     },
     chainWebpack: config=> {  //配置css通用变量
-        config.plugins.delete('preload')
+        //使用externals设置排除项
+        // config.set('externals',{
+        //     'vue':'Vue',
+        //     'VueRouter':'VueRouter',
+        //     'babel-polyfill': 'window',
+        //     'element-ui': 'ELEMENT'
+        // })
+        //config.plugins.delete('preload')
         config.plugins.delete('prefetch')
         config.module.rule('less').oneOf('vue').use('style-resource')
         .loader('style-resources-loader')
@@ -33,11 +40,14 @@ module.exports = {
 
     },
     css:{//配置css通用变量
-            loaderOptions: {
+           loaderOptions: {
                  less: {
                      javascriptEnabled: true
                 }
-            }
+            },
+//             extract: process.env.NODE_ENV === 'production' ? {
+//                 ignoreOrder: true,
+//             } : false
     },
     devServer: {
         port:80,
