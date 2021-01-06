@@ -47,16 +47,16 @@
                     <template slot-scope="scope" >
                         <div v-if="item.operation" >
                             <div v-if="scope.row['operation_list'] && item.operation.length === 0" class="operateBtn">
-                                <el-button 
-                                    v-for="(oitem, key) in scope.row['operation_list']" 
-                                    :key="key"
-                                    @click="oitem.clickFun(scope.row,scope.$index,item)"
-                                    :style="{width:oitem.width}"
-                                    :disabled="oitem.isDisabled"
-                                    :type="oitem.colorType" 
-                                    size="mini">
-                                    {{ oitem.name }}
-                    　　　　　　 </el-button>
+                                <el-badge v-for="(oitem, key) in scope.row['operation_list']" :key="key" :is-dot="oitem.isDot" value="新" :hidden="!oitem.badge">
+                                    <el-button 
+                                        @click="oitem.clickFun(scope.row,scope.$index,item)"
+                                        :style="{width:oitem.width}"
+                                        :disabled="oitem.isDisabled"
+                                        :type="oitem.colorType" 
+                                        size="mini">
+                                        {{ oitem.name }}
+                        　　　　　　 </el-button>
+                                </el-badge>
                             </div>
                             <div v-else class="operateBtn">
                                 <el-button 
