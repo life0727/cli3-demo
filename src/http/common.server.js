@@ -43,6 +43,20 @@ export class CommonServer {
         return this.context.loading
     }
 
+    //打开loading
+    turnOnLoading(querySelector,text = '拼命读取中') {
+        const target = Object.prototype.toString.call(querySelector) === '[object HTMLDivElement]' ? querySelector : document.querySelector(querySelector)
+        //console.log('target',target)
+        const loading = Loading.service({
+            text,
+            spinner: 'el-icon-loading',
+            target
+        });
+        this.context.loading = this.context.loading ? [...this.context.loading,loading] : [loading]
+        console.log('this.context.loading ',this.context.loading )
+        return this.context.loading
+    }
+
     //加载公共组件
     addComponent(addComponentName){
         if(!this.context.base){
