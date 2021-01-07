@@ -59,15 +59,15 @@
                                 </el-badge>
                             </div>
                             <div v-else class="operateBtn">
-                                <el-button 
-                                    v-for="(oitem, key) in item.operation" 
-                                    :key="key"
-                                    @click="oitem.clickFun(scope.row,scope.$index,item)"
-                                    :style="{width:oitem.width}"
-                                    :disabled="oitem.isDisabled"
-                                    :type="oitem.colorType" size="mini">
-                                    {{ oitem.name }}
-                    　　　　　　 </el-button>
+                                    <el-button 
+                                        v-for="(oitem, key) in item.operation" 
+                                        :key="key"
+                                        @click="oitem.clickFun(scope.row,scope.$index,item)"
+                                        :style="{width:oitem.width}"
+                                        :disabled="oitem.isDisabled"
+                                        :type="oitem.colorType" size="mini">
+                                        {{ oitem.name }}
+                        　　　　　　 </el-button>
                             </div>
                             
                         </div>
@@ -141,25 +141,32 @@
             pageHidden:{
                 type:Boolean,
                 default:false
+            },
+            DefaultPageParams: {
+                type: Object,
+                default: function () {
+                    return {
+                        'pageNum': 1,
+                        'pageSize': 10
+                    }
+                }
             }
-            // DefaultPageParams: {
-            //     type: Object,
-            //     default: function () {
-            //         return {
-            //             'pageNum': 1,
-            //             'pageSize': 10
-            //         }
-            //     }
-            // }
         },
         data() {
             return {
                 data: [],//table总数居
-                pageParams: {
-                    'pageNum': 1,
-                    'pageSize': 10
-                }
+                // pageParams: {
+                //     'pageNum': 1,
+                //     'pageSize': 20
+                // }
             };
+        },
+        computed: {
+            pageParams: {
+                get() {
+                    return this.DefaultPageParams
+                }
+            }
         },
         mounted() {
         },
@@ -212,7 +219,11 @@
                         width: 100%;
                     }
                 }
-                    
+                .el-badge{
+                    .el-badge__content{
+                        top: 8px;
+                    }
+                }    
             }
         }
 
