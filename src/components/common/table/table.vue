@@ -78,7 +78,8 @@
                         </div> -->
                         <div v-else>
                             <span v-if="item.isLink"><el-link type="primary" @click="linkTo(scope.row,item)">{{ scope.row[item.content] || scope.row[item.prop] }}</el-link></span>
-                            <span v-else>{{ scope.row[item.content] || scope.row[item.prop] }}</span>
+                           <span v-else-if="item.isCustomize"><component :is="item.customize" :row="scope.row" :prop1="item.prop1" :prop2="item.prop2" /></span>
+                           <span v-else>{{ scope.row[item.content] || scope.row[item.prop] }}</span>
                         </div>
                     </template>
                 </el-table-column>
