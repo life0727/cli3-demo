@@ -12,7 +12,7 @@
 
 <script>
 import Table from '../../common/table/table';
-impot idTaskTable from './idTaskTable'.vue;
+import idTaskTable from './idTaskTable'.vue;
 import { IDMapServer } from './idMap.server'
 
   export default {
