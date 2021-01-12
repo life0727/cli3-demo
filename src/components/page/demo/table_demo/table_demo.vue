@@ -12,6 +12,7 @@
 
 <script>
 import Table from '../../common/table/table';
+impot idTaskTable from './idTaskTable'.vue;
 import { IDMapServer } from './idMap.server'
 
   export default {
@@ -31,7 +32,8 @@ import { IDMapServer } from './idMap.server'
     },
     computed: {},
     components: {
-        Table
+        Table,
+        idTaskTable
     },
     watch: {
         'currentPageParams.pageNum':{
@@ -121,7 +123,15 @@ import { IDMapServer } from './idMap.server'
                         obj.isLink = true; 
                         obj.minWidth = '150';
                         obj.tableOrder = 13
-                        break 
+                        break
+                    case 'id':
+                        obj.prop1 = i;
+                        obj.prop2 = 'bpmsInstanceId';
+                        obj.label = '自定义'
+                        obj.isCustomize = true
+                        obj.customize = idTaskTable
+                        obj.tableOrder = 18
+                        break     
                     case 'runType':
                         obj.prop = 'runType_show';
                         obj.label = '运行方式'
