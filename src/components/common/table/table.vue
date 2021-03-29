@@ -124,6 +124,7 @@
             tableRowClassName:{
                 type:Function,
                 default:function({row,rowIndex}){
+                    //row._index = rowIndex 可以获取表格行索引
                     //console.log('tableRowClassName',row)
                 }
             },
