@@ -194,7 +194,16 @@ import { IDMapServer } from './idMap.server'
             if(col.prop === 'instanceId'){
                 window.open(row.url)
             }
-        }
+        },
+        _getTableList({ pageNum, pageSize }){
+            this.data = this.total ? this.metaData.options.slice((pageNum - 1) * pageSize,pageNum * pageSize > this.total ? this.total : pageNum * pageSize) : [];
+        },
+        _createTableData(data){
+            this.total = data.options.length;
+            this.getTableList(this.currentPageParams)
+            console.log('this.data',this.data)
+            this.createTableHeadData(this.data[0]);
+        },
     }
   }
 
