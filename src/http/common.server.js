@@ -69,6 +69,13 @@ export class CommonServer {
     _deepCopy(obj){
         return JSON.parse(JSON.stringify(obj))
     }
+    
+    getTableList(total,pageNum, pageSize, Data = []){//前端分页算法
+        if(!total || !Data || !Data.length){
+            return []
+        }
+        return Data.slice((pageNum - 1) * pageSize,pageNum * pageSize > total ? total : pageNum * pageSize)
+    }
 
     //删除提示信息
     removeTips(name,cb){
