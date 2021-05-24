@@ -226,6 +226,16 @@ export function json2treeTable(DATA,getSubval){//json数据通过某个key对应
     return result
 }
 
+export function thousandsFormat(num){ //数字千分位
+    if(!num) return num
+    const res = num.toString().replace(/\d+/, function(n){ // 先提取整数部分
+        return n.replace(/(\d)(?=(\d{3})+$)/g,function($1){
+           return $1+",";
+         });
+   })
+   return res;
+}
+
 export function formatjson4quot(jsonStr){ //json得引号变成了&quot 格式化
     if(!jsonStr) return '';
     jsonStr = jsonStr.replace(new RegExp('&quot;',"gm"),'"')
