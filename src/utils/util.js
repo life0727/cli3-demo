@@ -292,6 +292,21 @@ export function getFps(status,callBcak){
         return false
     }
 }
+
+export function getMaxFloor(treeData,key = 'childern'){ //获取数据深度
+    let deep = 0;
+    function eachData(data, index) {
+        data[key] && data[key].forEach(elem => {
+         if (index > deep) {
+            deep = index;
+         }
+         if (elem[key] && elem[key].length > 0) {
+            eachData(elem, deep + 1);
+          }
+    }) }
+    eachData(treeData, 1);
+    return deep;
+  }
 // try {
 
 
