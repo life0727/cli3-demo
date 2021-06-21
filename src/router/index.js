@@ -12,7 +12,7 @@ export default new Router({
     routes: [
         {
             path: '/index',
-            component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/Index.vue'),
+            component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/home/index.vue'),
             meta: { title: '系统首页' }
             //redirect: '/dashboard',
             //redirect: '/LINK_TrafficVolume'
