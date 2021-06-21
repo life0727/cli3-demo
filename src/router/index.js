@@ -38,7 +38,7 @@ export default new Router({
             children: [
                 {
                     path: '/showPicList',
-                    component: () => import(/* webpackChunkName: "form" */ '../components/page/BadCase/showPicList.vue'),
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/home/showPicList.vue'),
                     meta: { title: '示例图片维表展示' }
                 }
             ]
