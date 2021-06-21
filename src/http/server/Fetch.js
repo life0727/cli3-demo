@@ -1,7 +1,7 @@
 import axios from 'axios';
 import api from './api/index';
 import { Message } from 'element-ui';
-import { getCookie,getBaseUrl } from '../utils/util';
+import { getCookie,getBaseUrl } from '../../utils/util';
 //import el from 'element-ui/src/locale/lang/el';
 axios.defaults.transformResponse = [ //处理java lang类型
     function(data) {
