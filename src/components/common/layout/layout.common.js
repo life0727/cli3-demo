@@ -34,6 +34,8 @@ class LayoutCommon extends CommonServer{
         switch ( routePath) {
 
             case '/platform/createPage':
+            case '/platform/tttt':
+            case '/platform/tttt111':
                 res = [
                     {
                         name:'awdadwa面',
