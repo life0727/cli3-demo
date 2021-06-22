@@ -3,8 +3,22 @@
         <!-- 折叠按钮 -->
 
         <div class="logo" @click="toHome"></div>
-        <div :class="$route.path != i.path ? 'name' : 'name active'" v-for="i in sysName" :key="i.path" @click="toRoute(i)">{{i.name}}</div>
-        <div class="collapse-btn" @click="collapseChage" v-if="this.$route.path.indexOf('subHome/') == '-1'">
+         <div class="name sysTitle" v-if="!!sysTitle">{{sysTitle}}</div>
+        <!-- <div :class="$route.path != i.path ? 'name' : 'name active'" v-for="i in sysName" :key="i.path" @click="toRoute(i)">{{i.name}}</div> -->
+        <div :class="activePath != i.path ? 'name' : 'name active'" :style="{lineHeight:i.children ? '54px' : '55px'}" v-for="i in sysName" :key="i.path" @click="toRoute(i)">
+            <span v-if="i.children" class="dynamicMenu">
+                 <el-dropdown @command="toRoute">
+                    <span class="el-dropdown-link">
+                        {{i.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown" class="menu_dropdown">
+                        <el-dropdown-item v-for="item in i.children" :command="item" :key="item.path" >{{item.name}}</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </span>
+            <span v-else>{{i.name}}</span>
+        </div>
+        <div class="collapse-btn" @click="collapseChage" v-if="this.$route.path.indexOf('platform/') == '-1'">
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
@@ -59,7 +73,7 @@
 </template>
 <script>
 import bus from '../../../utils/bus';
-
+import LayoutCommon from './layout.common'
 export default {
     data() {
         return {
@@ -67,7 +81,9 @@ export default {
             fullscreen: false,
             username:'',
             headerShow:true,//header是否显示 
-            sysName:[]
+            sysName:[],
+            sysTitle:'',
+            activePath:'',
             //message: 2
         };
     },
@@ -82,22 +98,24 @@ export default {
     //     }
     // },
     created(){
-        this.$fetch({ //获取用户信息
-            method:'get',
-            url:'login',
-            success:this.initAccount
-        });
+
+        this.layoutCommon = new LayoutCommon(this)
         this.isIniframe();//判断是否再iframe中
         this.initSysName()//生成header数组
-        //IDPermiss权限认证
-        bus.$on('IDPermiss', msg => {
-            console.log('IDPermiss',msg)
-            //console.log('sysName',this.sysName);
-            if(!msg.hasIDpermiss){
-                this.sysName = this.sysName.filter(i => i.path !== '/subHome/idData')
-            }
-        });
 
+    },
+    mounted() {
+        if (document.body.clientWidth < 1500) {
+            this.collapseChage();
+        }
+        this.getSysIsActive(this.$route)
+    },
+    watch:{
+        $route:{
+            handler(val){
+                this.getSysIsActive(val)
+            }
+        }
     },
     methods: {
 
@@ -110,147 +128,15 @@ export default {
             }
         },
         initSysName(){
-            const routePath = this.$route.path;
-            const poiArringReg = /^\/subHome\/Arriving\//;
-            let res = [
-                {
-                    name:'台',
-                    path:'/LINK_TrafficVolume'
-                }
-            ];
-            switch ( routePath) {
-                case '/subHome/callPoint':
-                    res = [
-                        {
-                            name:'注',
-                            path:'/subHome/callPoint'
-                        }
-                    ];
-                    break;
-                case '/subHome/callCar':
-                    res = [
-                        {
-                            name:'示',
-                            path:'/subHome/callCar'
-                        }
-                    ];
-                    break;    
-                case '/subHome/Track_Split':
-                case '/subHome/Track_Split_Log':
-                //case '/subHome/createPage': 
-                    res = [
-                        {
-                            name:'展示',
-                            path:'/subHome/Track_Split'
-                        },
-                        {
-                            name:'志',
-                            path:'/subHome/Track_Split_Log'
-                        },
-                        {
-                            name:'据展示',
-                            path:'/subHome/createPage',
-                            isOut: true
-                        }
-                    ];
-                    break;
-                case '/subHome/location_map':
-                    res = [
-                        {
-                            name:'化',
-                            path:'/subHome/location_map'
-                        }
-                    ]
-                    break;
-                case '/subHome/POI':    
-                case '/subHome/Arriving':   
-                case '/subHome/PoiShowLoc':   
-                //case '/subHome/createPage':   
-                    res = [
-                        {
-                            name:'运',
-                            path:'/subHome/POI'
-                        },
-                        {
-                            name:'P展示',
-                            path:'/subHome/Arriving'
-                        },
-                        {
-                            name:'PO示',
-                            path:'/subHome/PoiShowLoc'
-                        },
-                        {
-                            name:'自示',
-                            path:'/subHome/createPage',
-                            isOut: true
-                        }
-                    ]
-                    break;
-                case '/subHome/crowd_select':     
-                case '/subHome/crowd_fence':     
-                case '/subHome/crowd_behaviour':     
-                case '/subHome/heatMap':     
-                    res = [
-                        {
-                            name:'人',
-                            path:'/subHome/crowd_select'
-                        },
-                        {
-                            name:'栏',
-                            path:'/subHome/crowd_fence'
-                        },
-                        {
-                            name:'为',
-                            path:'/subHome/crowd_behaviour'
-                        },
-                        {
-                            name:'图',
-                            path:'/subHome/heatMap'
-                        }
-                    ]
-                    break; 
-                case '/subHome/idPermission':
-                case '/subHome/idData':
-                case '/subHome/idTaskList':
-                    res = [
-                        // {
-                        //     name:'请',
-                        //     path:'/subHome/idPermission'
-                        // },
-                        {
-                            name:'务',
-                            path:'/subHome/idData'
-                        },
-                        {
-                            name:'表',
-                            path:'/subHome/idTaskList'
-                        }
-                    ]    
-                    break;
-                case '/subHome/createPage':
-                    res = [
-                        {
-                            name:'面',
-                            path:'/subHome/createPage'
-                        }
-                    ]
-                    break;    
-                case (routePath.match(poiArringReg)) && (routePath.match(poiArringReg)).input:
-                    res = [
-                        {
-                            name:routePath.slice(routePath.lastIndexOf('/') + 1,routePath.length),
-                            path:routePath
-                        }
-                    ]
-                    break;     
-                default:
-                    break;
+           if(this.$route.meta.headerShow === 'false'){
+                this.headerShow = false;
+                return
             }
-            //return res;
+            let res = this.layoutCommon.getSysName()
             this.sysName = res;
         },
         toHome(){
-            this.$route.path !== '/LINK_TrafficVolume' && this.$router.push('/');
+            //this.$route.path !== '/LINK_TrafficVolume' && this.$router.push('/');
         },
         initAccount(data){
             localStorage.setItem('accoutInfo',JSON.stringify(data))
@@ -308,11 +194,14 @@ export default {
                 this.$router.push(i.path)
             }
         },
-    },
-    mounted() {
-        if (document.body.clientWidth < 1500) {
-            this.collapseChage();
-        }
+        getSysIsActive(route){
+            const paths = this.layoutCommon.findParentsById(this.sysName,route,'path')
+            if(!paths.length){
+                this.activePath = route.path
+            }else{
+                this.activePath = paths[0].path
+            }
+        },
     }
 };
 </script>
@@ -325,6 +214,44 @@ export default {
     font-size: 21px;
     color: #fff;
     background-color: #35363a;
+    .sysTitle{
+        margin-right: 100px;
+        margin-left: 0px;
+        cursor: auto;
+        color: white;
+    }
+    .workSpace{
+        margin-right: 20px;
+    }
+    .logo {
+        transform: scale(.6);
+        float: left;
+        margin:0 -8px 0 10px;
+        width: 70px;
+        height: 55px;
+        line-height: 55px;
+        //background: url('../../../assets/img/logo/logo.png');
+        background-position: -350px -70px;
+        cursor: pointer;
+    }
+    .name {
+        float: left;
+        margin-left: 25px;
+        line-height:55px;
+        font-size: 18px;
+        cursor: pointer;
+        color: #999;
+    }
+    .active{
+        color: white;
+        padding: 0px 10px 0 10px;
+        background: @themeColor;
+        .dynamicMenu{
+            .el-dropdown-link{
+                color:white;
+            }
+        }
+    }
 }
 .collapse-btn {
     float: left;
@@ -335,27 +262,13 @@ export default {
 .collapse-btn:hover{
     background-color: #35363a;
 }
-.header .logo {
-    transform: scale(.6);
-    float: left;
-    margin:0 -8px 0 10px;
-    width: 70px;
-    height: 55px;
-    line-height: 55px;
-    background: url('../../../assets/img/logo/logo.png');
-    background-position: -350px -70px;
-    cursor: pointer;
-}
-.header .name {
-    float: left;
-    margin-left: 15px;
-    line-height:55px;
-    font-size: 18px;
-    cursor: pointer;
-    color: #999;
-}
-.header .active{
-    color: white;
+.dynamicMenu{
+    .el-dropdown-link{
+        font-size: 18px;
+        cursor: pointer;
+        color: #999;
+    }
+    
 }
 .header-right {
     float: right;
