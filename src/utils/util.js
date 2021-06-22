@@ -1,5 +1,5 @@
 import { Message, Loading  } from 'element-ui';
-import Fetch from '../http/Fetch';
+import Fetch from '../http/server/Fetch';
 
 export const changeIconFromRoutePath = function(route) {
     const path = route.path && route.path.slice(0, route.path.indexOf('_'));
