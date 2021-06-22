@@ -10,7 +10,7 @@ import store from './vuex/store'
 //import './components/common/directives'; //注册指令
 import 'babel-polyfill';
 import VueClipboard from 'vue-clipboard2'
-import Pagination from '../src/components/common/Pagination';
+import Pagination from '../src/components/common/layout/pagination.vue';
 import 'xe-utils'//tree-table
 import VXETable from 'vxe-table' //tree-table
 import 'vxe-table/lib/index.css' //tree-table-js
