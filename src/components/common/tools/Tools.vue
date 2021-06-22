@@ -45,7 +45,7 @@
 </template>
 
 <script>
-
+import simplePanel from '../layout/simplePanel'
     export default {
         name: 'Tools',
         props: {
@@ -134,14 +134,7 @@
             getTrackPoints(name){
 
             },
-    async   getDistanceS(){},
-            getDistance(name){},
-            getPositionInfoHandel(e){},
-            getPositionInfo(name){    
-            },
-            styleHandel(style){
-  
-            },
+
             switchstyle(name){
                 this.switchStyle(name)
             },
@@ -152,16 +145,7 @@
                     return 'current-row';
                 }
             },
-            // closeShowPointDetail(){
-            //     Mark.removeSimpleMarker();
-            //     this.isShowPointDetail = false;
-            // },
-            loadingMouseTool(){
 
-            },
-            loadingRangingTool(){
-
-            },
         }
     };
 </script>
