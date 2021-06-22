@@ -23,8 +23,8 @@ export default new Router({
             meta: { title: 'subHome', keepAlive: true },
             children: [
                 {
-                    path: '/subHome/createPage',
-                    component: () => import(/* webpackChunkName: "form" */ '../components/page/createPage/createPage.vue'),
+                    path: '/platform/createPage',
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/platform/createPage.vue'),
                     meta: { title: '创建页面', dataSetId: '', keepAlive: true }
                 }
             ]
