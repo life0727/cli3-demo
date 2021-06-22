@@ -4,9 +4,9 @@ import Fetch from './server/Fetch'
 
 import { _fetch } from './server/Fetch'
 
-import LoadScript from './server/LoadScript'
+import LoadScript from './server/loadScript'
 
-import Layout from '../components/common/funComponents/Layout'
+import Layout from '../components/common/funComponents/layout.js'
 
 import { Tools as ToolsConf, Textarea as TextareaConf } from '../components/common/funComponents/Layout.baseConfig'
 export class CommonServer {
