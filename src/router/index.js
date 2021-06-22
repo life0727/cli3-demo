@@ -35,7 +35,7 @@ export default new Router({
                 {
                     path: '/platform/tttt111',
                     component: () => import(/* webpackChunkName: "form" */ '../components/page/platform/tttt111.vue'),
-                    meta: { title: 'ttt1t11', dataSetId: '', keepAlive: true }
+                    meta: { title: 'ttt1t11', dataSetId: '', keepAlive: true,/*headerShow:'false'*/  }
                 }
             ]
         },
