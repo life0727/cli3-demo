@@ -25,7 +25,17 @@ export default new Router({
                 {
                     path: '/platform/createPage',
                     component: () => import(/* webpackChunkName: "form" */ '../components/page/platform/createPage.vue'),
-                    meta: { title: '创建页面', dataSetId: '', keepAlive: true }
+                    meta: { title: 'createPage', dataSetId: '', keepAlive: true }
+                },
+                {
+                    path: '/platform/tttt',
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/platform/tttt.vue'),
+                    meta: { title: 'tttt', dataSetId: '', keepAlive: true }
+                },
+                {
+                    path: '/platform/tttt111',
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/platform/tttt111.vue'),
+                    meta: { title: 'ttt1t11', dataSetId: '', keepAlive: true }
                 }
             ]
         },
@@ -33,13 +43,13 @@ export default new Router({
             path: '/',
             component: () => import(/* webpackChunkName: "home" */ '../components/common/layout/Home.vue'),
             meta: { title: 'home' },
-            //redirect: '/index',
-            redirect: '/LINK_TrafficVolume',
+            redirect: '/showPicList',
+            //redirect: '/LINK_TrafficVolume',
             children: [
                 {
                     path: '/showPicList',
                     component: () => import(/* webpackChunkName: "form" */ '../components/page/home/showPicList.vue'),
-                    meta: { title: '示例图片维表展示' }
+                    meta: { title: '111' }
                 }
             ]
         },
