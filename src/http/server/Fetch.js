@@ -1,5 +1,5 @@
 import axios from 'axios';
-import api from './api/index';
+import api from '../api/api';
 import { Message } from 'element-ui';
 import { getCookie,getBaseUrl } from '../../utils/util';
 //import el from 'element-ui/src/locale/lang/el';
