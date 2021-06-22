@@ -19,7 +19,7 @@ export default new Router({
         },
         {
             path: '/subHome',
-            component: () => import(/* webpackChunkName: "home" */ '../components/common/Layout/subHome.vue'),
+            component: () => import(/* webpackChunkName: "home" */ '../components/common/layout/subHome.vue'),
             meta: { title: 'subHome', keepAlive: true },
             children: [
                 {
@@ -31,7 +31,7 @@ export default new Router({
         },
         {
             path: '/',
-            component: () => import(/* webpackChunkName: "home" */ '../components/common/Layout/Home.vue'),
+            component: () => import(/* webpackChunkName: "home" */ '../components/common/layout/Home.vue'),
             meta: { title: 'home' },
             //redirect: '/index',
             redirect: '/LINK_TrafficVolume',
