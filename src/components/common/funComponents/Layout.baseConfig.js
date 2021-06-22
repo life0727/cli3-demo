@@ -1,5 +1,5 @@
-import TextareaComp from '../../components/common/tools/Textarea.vue'
-import ToolsComp from '../../components/common/tools/Tools.vue'
+import TextareaComp from '../tools/Textarea.vue'
+import ToolsComp from '../tools/Tools.vue'
 
 export const Tools = {
     name:'Tools',
@@ -8,25 +8,25 @@ export const Tools = {
         isLoad:true,
         toolsOptions:[{//传给Tools配置
             'icon':'',
-            'label':'选',
+            'label':'1选',
             'name':'getTrackPoints',
-            'tooltip':'框选轨迹点'
+            'tooltip':'1选'
         },{
             'icon':'',
-            'label':'距',
+            'label':'距1',
             'name':'getDistance',
-            'tooltip':'测距'
+            'tooltip':'2'
         },{
             'icon':'',
-            'label':'位',
+            'label':'2',
             'name':'getPositionInfo',
-            'tooltip':'位置信息'
+            'tooltip':'3'
         },{
             'icon':'',
-            'label':'肤',
+            'label':'4',
             'name':'switchstyle',
             'options':['normal','whitesmoke','fresh'],
-            'tooltip':'切换主题'
+            'tooltip':'45'
         }]
         
     }
