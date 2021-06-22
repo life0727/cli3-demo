@@ -83,67 +83,26 @@ export default {
                 {
                     icon: 'el-icon-lx-calendar',
                     index: '1',
-                    title: 'LIN信息',
+                    title: 'home',
                     subs: [
                         {
-                            index: 'LI_TrafficVolume',
-                            title: 'LIK信息-量'
-                        },
-                        {
-                            index: 'LI_Trajectory',
-                            title: 'LIK信息-信息'
-                        },
-                        {
-                            index: 'LINK_Attribute',
-                            title: 'LINK信息-LINK属性'
+                            index: 'showPicList',
+                            title: '1'
                         }
                     ]
                 },
                 {
                     icon: 'el-icon-truck',
                     index: '8',
-                    title: '轨迹',
+                    title: 'platform',
                     subs: [
                         {
-                            index: '/subHome/Track_Split',
-                            title: '展示',
-                            isOut: true
-                        },
-                        {
-                            index: '/subHome/Track_Split_Log',
-                            title: '日志',
-                            isOut: true
-                        },
-                        {
-                            index: 'BadCase_Trajectory',
-                            title: 'Case'
-                        },
-                    ]
-                },
-                {
-                    icon: 'el-icon-document-add',
-                    index: '11',
-                    title: '自定义页面',
-                    subs: [
-                        {
-                            index: '/subHome/createPage',
-                            title: '创建页面',
-                            isOut: true
-                        },
-                    ]
-                },
-                {
-                    icon: 'el-icon-star-off',
-                    index: '12',
-                    title: '共行',
-                    subs: [
-                        {
-                            index: '/subHome/callPoint',
-                            title: '上标注',
+                            index: '/platform/createPage',
+                            title: 'platform',
                             isOut: true
                         }
                     ]
-                },
+                }
             ]
         };
     },
