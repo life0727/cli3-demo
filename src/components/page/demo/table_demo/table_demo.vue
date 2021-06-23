@@ -131,6 +131,8 @@ import { IDMapServer } from './idMap.server'
                         obj.isCustomize = true
                         obj.customize = idTaskTable
                         obj.tableOrder = 18
+                         obj.sortable = true;
+                         obj.sortMethod = (a,b) => this.sortMethod('baseValue',a,b)
                         break     
                     case 'runType':
                         obj.prop = 'runType_show';
@@ -197,6 +199,15 @@ import { IDMapServer } from './idMap.server'
         },
         _getTableList({ pageNum, pageSize }){
             this.data = this.total ? this.metaData.options.slice((pageNum - 1) * pageSize,pageNum * pageSize > this.total ? this.total : pageNum * pageSize) : [];
+        },
+        sortMethod(value,a,b){
+            const _a = a[value] || '0' 
+            const _b = b[value] || '0' 
+            if(_a.includes('%') && _b.includes('%')){
+                console.log(_a.slice(0,_a.indexOf('%')))
+                return Number(_a.slice(0,_a.indexOf('%'))) - Number(_b.slice(0,_b.indexOf('%')))
+            }
+            return Number(_a) - Number(_b)
         },
         _createTableData(data){
             this.total = data.options.length;
