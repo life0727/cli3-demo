@@ -1,7 +1,7 @@
 import axios from 'axios';
-import api from '../api/api';
+import api from './api/index';
 import { Message } from 'element-ui';
-import { getCookie,getBaseUrl } from '../../utils/util';
+import { getCookie,getBaseUrl } from '../utils/util';
 //import el from 'element-ui/src/locale/lang/el';
 axios.defaults.transformResponse = [ //处理java lang类型
     function(data) {
@@ -80,7 +80,7 @@ let errorFun = (err) => {
 export default function(config) {
     let configUrl = api[config.url];
     let options = {
-        url: configUrl || config.url,
+        url:configUrl || config.url,
         method: config.method || 'get',
         params: config.params,
         data: config.data,
@@ -101,6 +101,7 @@ export default function(config) {
     };
     service(options).then(response => {
         //console.log('response', response,options.context.loading)
+       // return
         //options.context && options.context.loading && options.context.loading.close();
         if(options.context){
             if(Array.isArray(options.context.loading)){
@@ -121,7 +122,7 @@ export default function(config) {
             } else if (response.status == 200 && (!response.data.ret || response.data.ret == 'success')) { /// || => tools/goodcase/meetpoint/list?
                 config.success(response.data);   
             } else {
-                const callBackText = response.statusText || response.data.ret;
+                const callBackText = response.statusText || response.data;
                 if (config.error) {
                     config.error(callBackText);
                 } else {
@@ -132,14 +133,16 @@ export default function(config) {
         
     })
     // .catch(error => {
+    //     console.log('e',error)
     //     options.context && options.context.loading && options.context.loading.close();
-    //     // config.success(data);
+    //     config.success(data);
     //     config.error ? config.error(error) : errorFun(error);
     // });
 };
 
 export const _fetch = function(config){
     let configUrl = api[config.url];
+    let isInIframe =  sessionStorage.getItem('isInIframe')
     let options = {
         url: configUrl || config.url,
         method: config.method || 'get',
@@ -160,6 +163,27 @@ export const _fetch = function(config){
            
       }]
     };
+    if(isInIframe === 'false'){
+        return promiseCallBack(options)
+    }else{
+        return new Promise((resolve) =>{
+            service({url:'buc/user'}).then(response => {
+               //axios.get('https://hectorstatic.baidu.com/cd37ed75a9387c5b.js?_=1630639338936').then(response => {
+                console.log('response',response)
+                //resolve(response)
+                return response
+            }).then((res) => {
+                return promiseCallBack(options)
+            }).then((res_) => {
+                resolve(res_) 
+                console.log('res_',res_)
+            })
+        })
+    }
+     
+}
+
+const promiseCallBack = (options) =>{
     return new Promise((resolve) =>{
         service(options).then(response => {
             if(options.context){
