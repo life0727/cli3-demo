@@ -34,6 +34,9 @@
                         :show-overflow-tooltip="!item.operation && true"
                         :key="index"
                         max-width="350"
+                        :sortable="item.sortable"
+                        :sort-method="item.sortMethod"
+                        :sort-by="item.sortBy"
                         :min-width="item.minWidth"
                         :prop="item.prop"
                         :label="item.label"
@@ -50,7 +53,7 @@
                                 <el-badge v-for="(oitem, key) in scope.row['operation_list']" :key="key" :is-dot="oitem.isDot" value="新" :hidden="!oitem.badge">
                                     <el-button 
                                         @click="oitem.clickFun(scope.row,scope.$index,item)"
-                                        :style="{width:oitem.width}"
+                                        :style="{width:oitem.width,padding:oitem.padding}"
                                         :disabled="oitem.isDisabled"
                                         :type="oitem.colorType" 
                                         size="mini">
@@ -63,12 +66,15 @@
                                         v-for="(oitem, key) in item.operation" 
                                         :key="key"
                                         @click="oitem.clickFun(scope.row,scope.$index,item)"
-                                        :style="{width:oitem.width}"
+                                        :style="{width:oitem.width,padding:oitem.padding}"
                                         :disabled="oitem.isDisabled"
                                         :type="oitem.colorType" size="mini">
                                         {{ oitem.name }}
                         　　　　　　 </el-button>
                             </div>
+                            <span v-if="item.hasCustomize" class="operateBtn_customize">
+                                <component :is="item.customize" :row="scope.row" :prop1="item.prop1" :prop2="item.prop2" />
+                            </span>
                             
                         </div>
                         <!-- <div v-if="item.type === 'selection'">
@@ -76,10 +82,10 @@
                                 <el-checkbox v-model="scope.row[item.prop]"></el-checkbox>
                             </span>
                         </div> -->
-                        <div v-else>
+                        <div v-else :style="{whiteSpace:item.iswhiteSpace ? 'normal' : 'nowrap'}">
                             <span v-if="item.isLink"><el-link type="primary" @click="linkTo(scope.row,item)">{{ scope.row[item.content] || scope.row[item.prop] }}</el-link></span>
-                           <span v-else-if="item.isCustomize"><component :is="item.customize" :row="scope.row" :prop1="item.prop1" :prop2="item.prop2" /></span>
-                           <span v-else>{{ scope.row[item.content] || scope.row[item.prop] }}</span>
+                            <span v-else-if="item.isCustomize"><component :is="item.customize" :row="scope.row" :prop1="item.prop1" :prop2="item.prop2" /></span>
+                            <span v-else>{{ scope.row[item.content] || scope.row[item.prop] }}</span>
                         </div>
                     </template>
                 </el-table-column>
@@ -124,7 +130,7 @@
             tableRowClassName:{
                 type:Function,
                 default:function({row,rowIndex}){
-                    //row._index = rowIndex 可以获取表格行索引
+                    //row.table_index = rowIndex //可以获取表格行索引
                     //console.log('tableRowClassName',row)
                 }
             },
@@ -174,7 +180,8 @@
         },
         methods: {
             handleSelectionChange(val){
-                this.$emit('handleSelectionChange',val)
+                console.log('handleSelectionChange',val)
+                this.$emit('handleSelection',val)
             },
             handleSelectionRow(selection,row){
                 this.$emit('handleSelectionRow',selection,row)
@@ -207,6 +214,9 @@
                     td{
                         padding: 5px 0;
                     }
+                    tr.current-row>td{
+                        background-color: lightskyblue;
+                    }
                 }
             }
             .operateBtn{
@@ -219,6 +229,7 @@
                     span{
                         display: inline-block;
                         width: 100%;
+                        
                     }
                 }
                 .el-badge{
