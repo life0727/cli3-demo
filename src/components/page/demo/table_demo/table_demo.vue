@@ -13,6 +13,7 @@
 <script>
 import Table from '../../common/table/table';
 import idTaskTable from './idTaskTable'.vue;
+import tablePro from './tablePro'.vue;
 import { IDMapServer } from './idMap.server'
 
   export default {
@@ -152,7 +153,7 @@ import { IDMapServer } from './idMap.server'
                 }
                 tableHeadData.push(obj);
             }
-            this.tableHeadData.push({
+            tableHeadData.push({
                 prop:'operate',
                 label:'运维列表',
                 tableOrder : 7,
@@ -171,6 +172,17 @@ import { IDMapServer } from './idMap.server'
                     // {name: '配置', colorType:'primary', clickFun: this.editRow},
                     // {name: '删除', colorType:'danger', clickFun: this.deleteRow}
             　　]
+            });
+            tableHeadData.push({
+                prop:'operate',
+                label:'操作',
+                tableOrder : 7,
+                minWidth:'170',
+                operation:[],
+                hasCustomize:true,
+                customize:tablePro,
+                prop1:this.IDMapServer,
+                prop2:''
             });
             tableHeadData.sort((a,b) => a.tableOrder - b.tableOrder);
             return Object.freeze(tableHeadData) 
