@@ -15,7 +15,7 @@ import Table from '../../common/table/table';
 import idTaskTable from './idTaskTable'.vue;
 import tablePro from './tablePro'.vue;
 import { IDMapServer } from './idMap.server'
-
+let isMounted = false;
   export default {
     name:'table_demo',
     props:{},
@@ -46,10 +46,12 @@ import { IDMapServer } from './idMap.server'
     mounted() {
         this.iDMapServer =  new IDMapServer(this);
         this.getTableList(this.currentPageParams);
+        this.preRender();
     },
     activated(){
         console.log('activated',this.$route.query);
-        this.preRender()
+        isMounted && this.preRender();
+        isMounted = true;
     },
     methods: {
         async getTableList({ pageSize = 10, pageNum = 1 }){
