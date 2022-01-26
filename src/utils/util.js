@@ -318,3 +318,22 @@ export function getMaxFloor(treeData,key = 'childern'){ //获取数据深度
 // } catch (err) {
 //     console.error(err);
 // }
+
+export function loadWindowScript(name,url){
+    return new Promise((resolve) => {
+        if (window[name]) {
+            console.log('nam1e',name)
+            resolve(window[name]);
+        } else {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.defer = true;
+            script.src = url;
+            document.head.appendChild(script);
+            script.onload = function(){
+                console.log('onload',name)
+                resolve(window[name])
+            }
+        }
+    })
+}
