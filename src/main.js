@@ -16,11 +16,12 @@ import VXETable from 'vxe-table' //tree-table
 import 'vxe-table/lib/index.css' //tree-table-js
 import { getBaseUrl } from './utils/util'
 
-import 'vx-easyui/dist/themes/default/easyui.css';
-import 'vx-easyui/dist/themes/icon.css';
-import 'vx-easyui/dist/themes/vue.css';
-import EasyUI from 'vx-easyui';
+// import 'vx-easyui/dist/themes/default/easyui.css';
+// import 'vx-easyui/dist/themes/icon.css';
+// import 'vx-easyui/dist/themes/vue.css';
+// import EasyUI from 'vx-easyui';
 
+import './assets/css/ali_iconfont.css'
 import './utils/drag'
 
 Vue.config.productionTip = false;
@@ -30,7 +31,7 @@ Vue.use(ElementUI, {
 });
 Vue.use(VXETable);
 
-Vue.use(EasyUI);
+//Vue.use(EasyUI);
 
 Vue.use(VueClipboard);
 
